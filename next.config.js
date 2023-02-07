@@ -2,7 +2,7 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ["links.papareact.com", "image.tmdb.org"],
+          domains: ["links.papareact.com", "image.tmdb.org", "static.xx.fbcdn.net"],
   },
   experimental: {
     appDir: true,
