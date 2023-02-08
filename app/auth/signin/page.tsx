@@ -7,8 +7,8 @@ const SignInPage = async () => {
   const providers = await getProviders();
 
   return (
-    <div>
-      <div>
+    <div className="">
+      <div className="flex justify-center">
         <Image
           className="rounded-full mx-2 object-cover"
           width={700}

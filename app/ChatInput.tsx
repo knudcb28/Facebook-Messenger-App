@@ -3,19 +3,24 @@ import React from "react";
 import { FormEvent, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Message } from "../typings";
-import useSWR from "swr"
+import useSWR from "swr";
 import fetcher from "../utils/fetchMessages";
+import { getServerSession } from "next-auth";
 
-function ChatInput() {
+type Props = {
+  session: any;
+};
+
+function ChatInput({ session }: Props) {
   const [input, setInput] = useState("");
-  const { data: messages, error, mutate } = useSWR("/api/getMessages", fetcher)
+  const { data: messages, error, mutate } = useSWR("/api/getMessages", fetcher);
 
-  console.log(messages)
+  console.log(messages);
 
   const addMessage = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!input) return;
+    if (!input || !session) return;
 
     const messageToSend = input;
 
@@ -27,11 +32,10 @@ function ChatInput() {
       id,
       message: messageToSend,
       created_at: Date.now(),
-      username: "Elon Musk",
+      username: session?.user?.name!,
       // profilepic: 'https://platform=lookaside.fbsbx.com/plarform/profilepic/?asid=10165787690655179&height=50&width=50&ext=1670750603&hash=AeQwQHgpc7_UkhQLsdY'
-      profilepic:
-        "https://image.tmdb.org/t/p/original/52SNpDJJCgBVfZtibLuXN1ZrliC.jpg",
-      email: "elonmusk@gmail.com",
+      profilepic: session?.user?.image!,
+      email: session?.user?.email!,
     };
 
     const uploadMessageToUpstash = async () => {
@@ -43,10 +47,9 @@ function ChatInput() {
         body: JSON.stringify({
           message,
         }),
-      }).then(res => res.json());
+      }).then((res) => res.json());
 
       return [data.message, ...messages!];
-      
     };
 
     await mutate(uploadMessageToUpstash, {
@@ -63,6 +66,7 @@ function ChatInput() {
       <input
         type="text"
         value={input}
+        disabled={!session}
         onChange={(e) => setInput(e.target.value)}
         placeholder="Enter message here..."
         className="flex-1 rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent px-5 py-3 disabled:opacity-50 disabled:cursor-not-allowed"

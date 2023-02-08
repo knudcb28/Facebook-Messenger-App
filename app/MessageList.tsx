@@ -26,6 +26,8 @@ function MessageList({initialMessages}: Props) {
       //if you sent the message, no need to update cache
       if (messages?.find((message) => message.id === data.id)) return;
 
+      console.log("--NEW Message from Pusher: ", data.message, "--")
+
       if (!messages) {
         mutate(fetcher);
       } else {
@@ -44,7 +46,7 @@ function MessageList({initialMessages}: Props) {
   }, [messages, mutate, clientPusher]);
 
   return (
-    <div className="space-y-5 px-5 pt-8 pb-32 max-w-2xl">
+    <div className="space-y-5 px-5 pt-8 pb-32">
       {(messages || initialMessages)?.map((message) => (
         <MessageComponent key={message.id} message={message} />
       ))}
