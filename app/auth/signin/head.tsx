@@ -2,7 +2,7 @@ import React from 'react'
 
 const Head = () => {
   return (
-    <title>Sign in to Messenger</title>
+    <title>Sign in to FB Messenger</title>
   )
 }
 
