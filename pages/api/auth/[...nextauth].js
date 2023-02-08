@@ -2,6 +2,7 @@ import NextAuth from "next-auth"
 import FacebookProvider from "next-auth/providers/facebook"
 
 export const authOptions = {
+  site: "https://new-messenger-app.vercel.app/auth/signin?callbackUrl=https%3A%2F%2Fnew-messenger-app.vercel.app%2F" ?? 'http://localhost:3000',
   // Configure one or more authentication providers
   providers: [
     FacebookProvider({
