@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Message } from "../typings";
 import useSWR from "swr";
 import fetcher from "../utils/fetchMessages";
-import { getServerSession } from "next-auth";
+
 
 type Props = {
   session: any;
