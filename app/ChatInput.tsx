@@ -6,6 +6,7 @@ import { Message } from "../typings";
 import useSWR from "swr";
 import fetcher from "../utils/fetchMessages";
 
+console.log("hello")
 
 type Props = {
   session: any;
