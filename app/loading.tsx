@@ -1,4 +1,4 @@
-import { CLIENT_PUBLIC_FILES_PATH } from "next/dist/shared/lib/constants";
+
 import React from "react";
 
 const Loading = () => {
